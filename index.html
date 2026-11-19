@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rozgar Pakistan | Daily Jobs Across All Corners of Pakistan</title>
+  <meta name="description" content="Clean, responsive job portal posting daily government and private jobs from Punjab, Sindh, KPK, Balochistan, Islamabad, GB and AJK.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Real-Time Announcement Ticker -->
+  <div class="top-ticker-bar" aria-label="Latest Job Announcements">
+    <div class="container ticker-wrapper">
+      <span class="ticker-label">LIVE FEED</span>
+      <div class="ticker-content" id="live-ticker-content">
+        <!-- Injected dynamically by app.js -->
+        <span class="ticker-item">Loading latest Pakistan recruitment bulletins...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Site Navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="Rozgar Pakistan Homepage">
+        <img src="assets/images/logo.svg" alt="Rozgar PK Logo">
+      </a>
+
+      <!-- Navigation tabs -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="javascript:void(0)" class="nav-link nav-tab active" data-view="all">All Pakistan</a></li>
+          <li><a href="javascript:void(0)" class="nav-link nav-tab" data-view="Islamabad">Federal</a></li>
+          <li><a href="javascript:void(0)" class="nav-link nav-tab" data-view="Punjab">Punjab</a></li>
+          <li><a href="javascript:void(0)" class="nav-link nav-tab" data-view="Sindh">Sindh</a></li>
+          <li><a href="javascript:void(0)" class="nav-link nav-tab" data-view="KPK">KPK</a></li>
+          <li><a href="javascript:void(0)" class="nav-link nav-tab" data-view="Balochistan">Balochistan</a></li>
+          <li><a href="javascript:void(0)" class="nav-link nav-tab" data-view="saved">Saved (<span id="saved-jobs-badge">0</span>)</a></li>
+          <!-- News tab strictly kept blank as requested -->
+          <li><a href="news.html" class="nav-link">News</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action items -->
+      <div class="nav-actions">
+        <button class="btn btn-outline btn-sm" id="simulate-job-btn" title="Simulate a newly announced job anywhere in Pakistan" aria-label="Simulate New Announcement">
+          ⚡ Demo Live Ad
+        </button>
+        <button class="btn btn-primary btn-sm" id="open-post-modal-btn">
+          📢 Post a Job
+        </button>
+        <button class="btn-icon" id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+          🌙
+        </button>
+        <button class="btn-icon mobile-menu-btn" id="mobile-toggle-btn" aria-label="Toggle Menu" style="display: none;">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Search Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        🇵🇰 All Provinces &amp; Federal Gazette Notices
+      </div>
+      <h1 class="hero-title">
+        Daily Jobs From <span>Every Corner</span> of Pakistan
+      </h1>
+      <p class="hero-subtitle">
+        Federal &amp; Provincial Public Service Commissions, Armed Forces, Banking, IT &amp; Healthcare opportunities updated in real-time.
+      </p>
+
+      <!-- Search & Filters Container -->
+      <div class="search-filter-card">
+        <!-- Live Instant Search -->
+        <div class="search-bar-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8" stroke-width="2"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/>
+          </svg>
+          <input 
+            type="search" 
+            id="search-input" 
+            class="search-input" 
+            placeholder="Search by job title, department (e.g. FPSC, PPSC, NADRA), city or scale (BPS-17)..." 
+            autocomplete="off"
+          >
+          <button id="clear-search" class="clear-search-btn" title="Clear Search">&times;</button>
+        </div>
+
+        <!-- Dropdown Filters Grid -->
+        <div class="dropdown-filters-grid">
+          <div class="filter-group">
+            <label for="province-filter">Province / Region</label>
+            <select id="province-filter" class="custom-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="category-filter">Department / Category</label>
+            <select id="category-filter" class="custom-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="sector-filter">Sector</label>
+            <select id="sector-filter" class="custom-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="education-filter">Min Qualification</label>
+            <select id="education-filter" class="custom-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Quick Filter Chips -->
+        <div class="quick-chips-row">
+          <span class="quick-label">Quick:</span>
+          <button class="quick-chip active" data-filter="all">All Jobs</button>
+          <button class="quick-chip" data-filter="today">🔥 New Today</button>
+          <button class="quick-chip" data-filter="urgent">⏳ Closing Soon</button>
+          <button class="quick-chip" data-filter="federal">Federal / Islamabad</button>
+          <button class="quick-chip" data-filter="punjab">Punjab</button>
+          <button class="quick-chip" data-filter="sindh">Sindh</button>
+          <button class="quick-chip" data-filter="kpk">Khyber Pakhtunkhwa</button>
+        </div>
+      </div>
+
+      <!-- Quick Stats Banner -->
+      <div class="stats-banner">
+        <div class="stat-item">
+          <span class="stat-num" id="total-jobs-badge">0</span>
+          <span class="stat-title">Active Vacancies</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" id="today-jobs-badge">0</span>
+          <span class="stat-title">Announced Today</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">8</span>
+          <span class="stat-title">Regions Covered</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-title">Verified Sources</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Jobs Feed Section -->
+  <main class="main-content" id="jobs-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="results-info">
+          <h2>Latest Job Announcements</h2>
+          <p id="results-count">Showing active job postings</p>
+        </div>
+
+        <div class="sorting-controls">
+          <label for="sort-select">Sort by:</label>
+          <select id="sort-select" class="custom-select" style="width: auto;">
+            <option value="newest">Newest Announced First</option>
+            <option value="closing">Deadline Approaching</option>
+            <option value="vacancies">Most Vacancies</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Jobs Grid -->
+      <div class="jobs-grid" id="jobs-grid">
+        <!-- Rendered by app.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-state">
+        <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          <line x1="8" y1="12" x2="16" y2="12" stroke-width="2"/>
+        </svg>
+        <h3>No Job Announcements Found</h3>
+        <p>No listings matched your active filter criteria. Try clearing search or choosing another province.</p>
+        <button class="btn btn-outline btn-sm" style="margin-top: 1rem;" onclick="location.reload()">
+          Reset All Filters
+        </button>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination-container"></div>
+    </div>
+  </main>
+
+  <!-- Modal: Job Details & Application Slip -->
+  <div class="modal-backdrop" id="job-detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-job-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 id="modal-job-title">Job Title</h3>
+          <p id="modal-job-org">Organization Name</p>
+        </div>
+        <button class="modal-close-btn modal-close-trigger" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="spec-grid">
+          <div class="spec-cell">
+            <span class="spec-label">Job ID / Case</span>
+            <span class="spec-value" id="modal-job-id">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Pay Scale</span>
+            <span class="spec-value" id="modal-job-bps">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Province &amp; Station</span>
+            <span class="spec-value"><span id="modal-job-province">-</span> (<span id="modal-job-city">-</span>)</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Total Vacancies</span>
+            <span class="spec-value" id="modal-job-vacancies">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Min Qualification</span>
+            <span class="spec-value" id="modal-job-education">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Age Limit</span>
+            <span class="spec-value" id="modal-job-age">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Testing Agency</span>
+            <span class="spec-value" id="modal-job-agency">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Sector</span>
+            <span class="spec-value" id="modal-job-sector">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label">Date Announced</span>
+            <span class="spec-value" id="modal-job-posted">-</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label" style="color: #dc2626;">Last Date to Apply</span>
+            <span class="spec-value" id="modal-job-lastdate" style="color: #dc2626;">-</span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h4>Ministry / Department</h4>
+          <p id="modal-job-ministry">-</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Official Advertisement Reference</h4>
+          <p id="modal-job-adref">-</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Job Description &amp; Quota Details</h4>
+          <p id="modal-job-desc">-</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Test Syllabus &amp; Examination Pattern</h4>
+          <p id="modal-job-syllabus">-</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-outline btn-sm" id="modal-bookmark-btn">☆ Save This Job</button>
+          <button class="btn btn-outline btn-sm wa-share-btn" id="modal-share-wa">Share on WhatsApp</button>
+          <button class="btn btn-outline btn-sm" id="modal-copy-link">Copy Link</button>
+          <button class="btn btn-outline btn-sm" id="modal-print-btn">🖨️ Print Slip</button>
+        </div>
+        <a href="#" target="_blank" class="btn btn-primary btn-sm" id="modal-apply-btn">
+          Official Apply Portal &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Post a New Job / Announcement Form -->
+  <div class="modal-backdrop" id="post-job-modal" role="dialog" aria-modal="true" aria-labelledby="post-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 id="post-modal-title">Post New Job Announcement</h3>
+          <p>Instantly publish a new recruitment notice across Pakistan</p>
+        </div>
+        <button class="modal-close-btn modal-close-trigger" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <form id="post-job-form">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-field form-full">
+              <label for="form-title">Job Title *</label>
+              <input type="text" id="form-title" name="title" class="form-input" placeholder="e.g. Assistant Director (BPS-17)" required>
+            </div>
+
+            <div class="form-field">
+              <label for="form-org">Organization / Department *</label>
+              <input type="text" id="form-org" name="organization" class="form-input" placeholder="e.g. FPSC, PPSC, NADRA" required>
+            </div>
+
+            <div class="form-field">
+              <label for="form-ministry">Ministry / Parent Authority</label>
+              <input type="text" id="form-ministry" name="ministry" class="form-input" placeholder="e.g. Ministry of Interior">
+            </div>
+
+            <div class="form-field">
+              <label for="form-province">Province / Region *</label>
+              <select id="form-province" name="province" class="form-select" required>
+                <option value="Islamabad">Islamabad (Federal)</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Sindh">Sindh</option>
+                <option value="KPK">Khyber Pakhtunkhwa (KPK)</option>
+                <option value="Balochistan">Balochistan</option>
+                <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+                <option value="AJK">Azad Jammu &amp; Kashmir</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="form-city">City / Station *</label>
+              <input type="text" id="form-city" name="city" class="form-input" placeholder="e.g. Lahore, Karachi, Quetta" required>
+            </div>
+
+            <div class="form-field">
+              <label for="form-category">Job Category</label>
+              <select id="form-category" name="category" class="form-select">
+                <option value="Law Enforcement & Defense">Law Enforcement &amp; Defense</option>
+                <option value="Education & Academia">Education &amp; Academia</option>
+                <option value="Civil Services & Executive">Civil Services &amp; Executive</option>
+                <option value="Healthcare & Medicine">Healthcare &amp; Medicine</option>
+                <option value="Banking & Finance">Banking &amp; Finance</option>
+                <option value="IT & Software">IT &amp; Software</option>
+                <option value="Engineering & Maritime">Engineering &amp; Maritime</option>
+                <option value="Administration & Municipal">Administration &amp; Municipal</option>
+                <option value="Emergency & Disaster Management">Emergency &amp; Disaster Management</option>
+                <option value="Revenue & Land Management">Revenue &amp; Land Management</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="form-sector">Sector</label>
+              <select id="form-sector" name="sector" class="form-select">
+                <option value="Federal Government">Federal Government</option>
+                <option value="Provincial Government">Provincial Government</option>
+                <option value="Semi-Government">Semi-Government</option>
+                <option value="Autonomous Federal Body">Autonomous Federal Body</option>
+                <option value="Private Sector">Private Sector</option>
+                <option value="Judicial Body">Judicial Body</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="form-bps">Scale / Grade</label>
+              <input type="text" id="form-bps" name="bps" class="form-input" placeholder="e.g. BPS-17 or OG-2">
+            </div>
+
+            <div class="form-field">
+              <label for="form-vacancies">Total Vacancies</label>
+              <input type="number" id="form-vacancies" name="vacancies" class="form-input" value="1" min="1">
+            </div>
+
+            <div class="form-field">
+              <label for="form-education">Min Qualification *</label>
+              <input type="text" id="form-education" name="education" class="form-input" placeholder="e.g. Bachelor's / Master's / Matric" required>
+            </div>
+
+            <div class="form-field">
+              <label for="form-age">Age Bracket</label>
+              <input type="text" id="form-age" name="ageLimit" class="form-input" placeholder="e.g. 21 - 30 Years">
+            </div>
+
+            <div class="form-field">
+              <label for="form-agency">Testing Agency</label>
+              <input type="text" id="form-agency" name="testingAgency" class="form-input" placeholder="e.g. NTS, PPSC, FPSC, PTS">
+            </div>
+
+            <div class="form-field">
+              <label for="form-deadline">Deadline / Last Date *</label>
+              <input type="date" id="form-deadline" name="lastDate" class="form-input" required>
+            </div>
+
+            <div class="form-field form-full">
+              <label for="form-link">Official Application URL</label>
+              <input type="url" id="form-link" name="applyLink" class="form-input" placeholder="https://example.gov.pk/apply">
+            </div>
+
+            <div class="form-field form-full">
+              <label for="form-desc">Eligibility &amp; Description</label>
+              <textarea id="form-desc" name="description" class="form-textarea" placeholder="Detail quota distribution, experience and instructions..."></textarea>
+            </div>
+
+            <div class="form-field form-full">
+              <label for="form-syllabus">Test Syllabus / Examination Pattern</label>
+              <input type="text" id="form-syllabus" name="syllabus" class="form-input" placeholder="e.g. 100 MCQs (General Knowledge 50%, Subject 50%)">
+            </div>
+
+            <div class="form-field form-full" style="flex-direction: row; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="form-urgent" name="isUrgent">
+              <label for="form-urgent" style="font-weight: normal; cursor: pointer;">Mark as Urgent / Closing Soon</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-sm modal-close-trigger">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">📢 Publish Announcement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/images/logo.svg" alt="Rozgar PK" style="height: 38px;">
+          <p>
+            Rozgar Pakistan connects job seekers from all corners of Pakistan with verified daily vacancies in government, semi-government, and leading private organizations.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Provinces &amp; Regions</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="filterByNav('Punjab')">Punjab Jobs</a></li>
+            <li><a href="javascript:void(0)" onclick="filterByNav('Sindh')">Sindh Jobs</a></li>
+            <li><a href="javascript:void(0)" onclick="filterByNav('KPK')">Khyber Pakhtunkhwa</a></li>
+            <li><a href="javascript:void(0)" onclick="filterByNav('Balochistan')">Balochistan</a></li>
+            <li><a href="javascript:void(0)" onclick="filterByNav('Islamabad')">Federal Capital / ICT</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Recruitment Commissions</h4>
+          <ul class="footer-links">
+            <li><a href="https://www.fpsc.gov.pk" target="_blank">FPSC Official</a></li>
+            <li><a href="https://www.ppsc.gop.pk" target="_blank">PPSC Punjab</a></li>
+            <li><a href="https://www.spsc.gos.pk" target="_blank">SPSC Sindh</a></li>
+            <li><a href="https://www.kppsc.gov.pk" target="_blank">KPPSC Khyber Pakhtunkhwa</a></li>
+            <li><a href="https://www.bpsc.gob.pk" target="_blank">BPSC Balochistan</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>System &amp; Tools</h4>
+          <ul class="footer-links">
+            <li><a href="news.html">News &amp; Bulletins</a></li>
+            <li><a href="javascript:void(0)" id="reset-db-btn">Reset Database to Default</a></li>
+            <li><a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top &uarr;</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Rozgar Pakistan. Designed for every corner of Pakistan.</p>
+        <p>Job advertisements sourced from official gazettes, press releases &amp; departmental boards.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/job-manager.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- Responsive menu & helper script -->
+  <script>
+    // Mobile navigation toggle
+    const mobileBtn = document.getElementById('mobile-toggle-btn');
+    const navMenu = document.getElementById('nav-links');
+    if (mobileBtn && navMenu) {
+      mobileBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('mobile-active');
+      });
+    }
+
+    // Footer quick filter helper
+    function filterByNav(province) {
+      const pFilter = document.getElementById('province-filter');
+      if (pFilter) {
+        pFilter.value = province;
+        pFilter.dispatchEvent(new Event('change'));
+        window.scrollTo({ top: document.getElementById('jobs-section').offsetTop - 80, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>

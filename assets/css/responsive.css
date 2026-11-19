@@ -1,0 +1,186 @@
+/**
+ * ROZGAR PK - Responsive Stylesheet
+ * Fluid layouts for Mobile, Tablet, and Desktop screens
+ */
+
+/* Medium Desktops and Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+  .jobs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dropdown-filters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+}
+
+/* Small Tablets and Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .header-inner {
+    height: 60px;
+  }
+
+  .nav-links {
+    display: none; /* hidden on small screen or toggleable */
+  }
+
+  .nav-links.mobile-active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 50;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+
+  .hero-section {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.65rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .search-filter-card {
+    padding: 1rem;
+  }
+
+  .dropdown-filters-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .quick-chips-row {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .quick-chip {
+    flex-shrink: 0;
+  }
+
+  .stats-banner {
+    gap: 1.25rem;
+  }
+
+  .stat-num {
+    font-size: 1.2rem;
+  }
+
+  .stat-title {
+    font-size: 0.68rem;
+  }
+
+  .jobs-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sorting-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-full {
+    grid-column: span 1;
+  }
+
+  .spec-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .modal-dialog {
+    max-height: 95vh;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: none;
+  }
+}
+
+/* Extra Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .brand-logo img {
+    height: 34px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .search-input {
+    font-size: 0.875rem;
+    padding: 0.75rem 2.2rem 0.75rem 2.4rem;
+  }
+
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-footer .quick-actions {
+    justify-content: space-between;
+  }
+
+  .card-footer .btn-sm {
+    width: 100%;
+  }
+}
